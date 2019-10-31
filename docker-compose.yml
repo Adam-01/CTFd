@@ -76,6 +76,7 @@ services:
         - /conf/frps.ini
     ports:
       - "28000-28100:28000-28100"
+      - "80:80"
     networks:
         frp:
             ipv4_address: 172.1.0.4
