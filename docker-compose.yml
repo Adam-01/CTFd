@@ -92,7 +92,7 @@ networks:
             config:
                 - subnet: 172.1.0.0/16
     frp_containers:
-        driver: bridge
+        driver: overlay
         internal: true
         ipam:
             config:
