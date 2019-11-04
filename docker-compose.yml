@@ -65,23 +65,6 @@ services:
             ipv4_address: 172.1.0.3
         frp_containers:
 
-  frps:
-    image: glzjin/frp:latest
-    restart: always
-    volumes:
-      - ./frp:/conf/
-    entrypoint:
-        - /usr/local/bin/frps
-        - -c
-        - /conf/frps.ini
-    ports:
-      - "28000-28100:28000-28100"
-      - "80:80"
-    networks:
-        frp:
-            ipv4_address: 172.1.0.4
-        default:
-
 networks:
     default:
     internal:
@@ -92,7 +75,7 @@ networks:
             config:
                 - subnet: 172.1.0.0/16
     frp_containers:
-        driver: bridge
+        driver: overlay
         internal: true
         ipam:
             config:
