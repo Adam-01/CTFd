@@ -76,10 +76,8 @@ services:
         - /usr/local/bin/frps
         - -c
         - /conf/frps.ini
-    ports:
-      - "28000-28100:28000-28100"
-      - "80:80"
     networks:
+        frp_host:
         frp:
             ipv4_address: 172.1.0.4
         default:
@@ -88,6 +86,8 @@ networks:
     default:
     internal:
         internal: true
+    frp_host:
+        driver: host
     frp:
         driver: bridge
         ipam:
