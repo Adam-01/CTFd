@@ -58,7 +58,7 @@ const yesTpl =
   '<button type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>';
 
 export function ezAlert(args) {
-  const modal = modalTpl.format(args.title, args.body);
+  const modal = modalTpl.format(args.title);
   const obj = $(modal);
 
   if (typeof args.body === "string") {
@@ -125,21 +125,23 @@ export function ezToast(args) {
     });
   }
 
-  let autohide = args.autohide || false;
+  let autohide = args.autohide !== false;
+  let animation = args.animation !== false;
   let delay = args.delay || 10000; // 10 seconds
 
   $("#ezq--notifications-toast-container").prepend(obj);
 
   obj.toast({
     autohide: autohide,
-    delay: delay
+    delay: delay,
+    animation: animation
   });
   obj.toast("show");
   return obj;
 }
 
 export function ezQuery(args) {
-  const modal = modalTpl.format(args.title, args.body);
+  const modal = modalTpl.format(args.title);
   const obj = $(modal);
 
   if (typeof args.body === "string") {
@@ -178,9 +180,10 @@ export function ezProgressBar(args) {
   }
 
   const progress = progressTpl.format(args.width);
-  const modal = modalTpl.format(args.title, progress);
+  const modal = modalTpl.format(args.title);
 
   const obj = $(modal);
+  obj.find(".modal-body").append($(progress));
   $("main").append(obj);
 
   return obj.modal("show");

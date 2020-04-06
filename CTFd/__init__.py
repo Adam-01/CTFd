@@ -30,7 +30,7 @@ if sys.version_info[0] < 3:
     reload(sys)  # noqa: F821
     sys.setdefaultencoding("utf-8")
 
-__version__ = "2.3.1"
+__version__ = "2.3.2"
 
 
 class CTFdRequest(Request):
@@ -96,7 +96,7 @@ class ThemeLoader(FileSystemLoader):
             return super(ThemeLoader, self).get_source(environment, template)
 
         # Load regular theme data
-        theme = utils.get_config("ctf_theme")
+        theme = str(utils.get_config("ctf_theme"))
         template = "/".join([theme, "templates", template])
         return super(ThemeLoader, self).get_source(environment, template)
 
@@ -177,7 +177,7 @@ def create_app(config="CTFd.config.Config"):
 
         reverse_proxy = app.config.get("REVERSE_PROXY")
         if reverse_proxy:
-            if "," in reverse_proxy:
+            if type(reverse_proxy) is str and "," in reverse_proxy:
                 proxyfix_args = [int(i) for i in reverse_proxy.split(",")]
                 app.wsgi_app = ProxyFix(app.wsgi_app, None, *proxyfix_args)
             else:
